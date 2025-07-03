@@ -1,76 +1,53 @@
-// บรรทัดเหล่านี้ที่ประกาศ useState ไม่จำเป็นแล้วสำหรับไฟล์ local JSON
-// import React, { useState, useEffect } from 'react';
-import React from 'react'; // <-- ไม่ต้องมี useState, useEffect ถ้าใช้แค่ไฟล์ local JSON
-import { View, Text, Image, StyleSheet, Dimensions, ScrollView, Platform } from 'react-native';
-// import ParallaxScrollView from 'react-native-parallax-scroll-view'; // ใช้ถ้าต้องการ parallax effect
-import nindamProfileData from './nindam_profile.json'; // <-- ให้แน่ใจว่าใช้ './' สำหรับไฟล์ที่อยู่ใน directory เดียวกัน // <-- แก้ไขตรงนี้: import ไฟล์ JSON เข้ามาโดยตรง
+import React from 'react';
+import { View, Text, Image, StyleSheet, Dimensions, ScrollView, Platform, SafeAreaView } from 'react-native';
+import nindamProfileData from './nindam_profile.json';
 
 const windowWidth = Dimensions.get('window').width;
 
 export default function App() {
-  // ลบ useEffect นี้ออกไป
-  // useEffect(() => {
-  //   fetch('C:/Users/Admin/NarinBoy/app/(tabs)/nindam_profile.txt')
-  //     .then(response => {
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch profile data');
-  //       }
-  //       return response.json();
-  //     })
-  //     .then(data => setProfile(data))
-  //     .catch(err => setError(err.message));
-  // }, []);
-
-  // ประกาศตัวแปร profile ให้รับค่าจากไฟล์ที่ import เข้ามาโดยตรง
   const profile = nindamProfileData; // 
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollViewContent}>
-      <View style={styles.body}>
-        {/* ลบเงื่อนไข error และ loading ออก เพราะข้อมูลพร้อมใช้แล้ว */}
-        {/* {error ? (
-          <Text style={styles.error}>Error: {error}</Text>
-        ) : !profile ? (
-          <Text style={styles.loading}>Loading...</Text>
-        ) : ( */}
-        {profile && ( // ตรวจสอบว่ามีข้อมูล profile (ซึ่งควรจะมีเสมอเมื่อ import โดยตรง)
+    <SafeAreaView style={{flex: 1}}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <View style={styles.body}>
+          {profile && (
+            <View style={styles.card}>
+              <Image
+                source={{ uri: 'http://nindam.ddns.net/web/ipsubject_800/sn.jpg' }}
+                style={styles.profileImg}
+              />
+              <Text style={styles.name}>{profile.name}</Text>
+              <Text style={styles.title}>{profile.title}</Text>
+              <Text style={styles.detail}>Phone: {profile.phone}</Text>
+              <Text style={styles.detail}>Email: {profile.email}</Text>
+            </View>
+          )}
+          
           <View style={styles.card}>
             <Image
-              source={{ uri: 'http://nindam.ddns.net/web/ipsubject_800/sn.jpg' }}
+              source={{ uri: 'https://scontent.fbkk30-1.fna.fbcdn.net/v/t39.30808-1/476642864_1535995037092343_2669049447636698747_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2048x2048&ctp=s200x200&_nc_cat=104&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeGsUngvYAsXJbODJf9a3KG7s9iEF3zIheSz2IQXfMiF5J8_3BMpm-ceXR5NskZWydjqKy3zXv-jD_KA2AcBLRzc&_nc_ohc=rBNsrVgpPpkQ7kNvwHmjYlf&_nc_oc=AdlmfmloiOBh5U85FU65ZSNoledue-kfB3gPIuIzulR2by79qYp3QBjukwAWQiiJhXQ&_nc_zt=24&_nc_ht=scontent.fbkk30-1.fna&_nc_gid=U_IyVp9vrZCpETE37Z6X-w&oh=00_AfOsRuatqj3DHrBTPN9gz83cp2pz9OMe0zXDVvUU9S07kQ&oe=686C5DFE' }}
               style={styles.profileImg}
             />
-            <Text style={styles.name}>{profile.name}</Text>
-            <Text style={styles.title}>{profile.title}</Text>
-            <Text style={styles.detail}>Phone: {profile.phone}</Text>
-            <Text style={styles.detail}>Email: {profile.email}</Text>
+            <Text style={styles.name}>Surasit Ainwiset</Text>
+            <Text style={styles.title}>Computer Science Professor</Text>
+            <Text style={styles.detail}>Phone: +66 987 654 999</Text>
+            <Text style={styles.detail}>Email: Surasit.a@example.com</Text>
           </View>
-        )}
-        {/* )} */}
-        
-        {/* ส่วน Card อื่นๆ ที่คุณมีอยู่ */}
-        <View style={styles.card}>
-          <Image
-            source={{ uri: 'http://nindam.ddns.net/web/ipsubject_800/user-icon.jpg' }}
-            style={styles.profileImg}
-          />
-          <Text style={styles.name}>Surasit Ainwiset</Text>
-          <Text style={styles.title}>Computer Science Professor</Text>
-          <Text style={styles.detail}>Phone: +66 987 654 999</Text>
-          <Text style={styles.detail}>Email: devid@example.com</Text>
-        </View>
 
-        <View style={styles.card}>
-          <Image
-            source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png' }}
-            style={styles.profileImg}
-          />
-          <Text style={styles.name}>Saksit Kumkeaw</Text>
-          <Text style={styles.title}>Computer Science Professor</Text>
-          <Text style={styles.detail}>Phone: +66 987 654 321</Text>
-          <Text style={styles.detail}>Email: jane.smith@example.com</Text>
+          <View style={styles.card}>
+            <Image
+              source={{ uri: 'https://scontent.fbkk30-1.fna.fbcdn.net/v/t39.30808-6/403835789_1863460824092728_8075243422736324164_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFFGQUyAi8Rtw-tiEX803ZRbEPbAzC0cchsQ9sDMLRxyIxX5yDjhSoEJwxFXwml0VuFQHwjkgcVsh_SNchn0wkj&_nc_ohc=2Au1gCrU-5MQ7kNvwEQwE9s&_nc_oc=AdlSPM1TopP6GSqKk8WI___RHufQRBN5ohQxjwyjpszKsZDVEWxbH6O0Py_6gOGxq7U&_nc_zt=23&_nc_ht=scontent.fbkk30-1.fna&_nc_gid=R2hpcDFelyDqPQUfZZWPsw&oh=00_AfPMhbSnqmnt6YP-KAYoFSnMG3Htb-5RI7n-iH7e7tLDpg&oe=686C8F77' }}
+              style={styles.profileImg}
+            />
+            <Text style={styles.name}>Saksit Kumkeaw</Text>
+            <Text style={styles.title}>Computer Science Professor</Text>
+            <Text style={styles.detail}>Phone: +66 987 654 321</Text>
+            <Text style={styles.detail}>Email: Saksit.k@example.com</Text>
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -83,51 +60,51 @@ const styles = StyleSheet.create({
   },
   body: {
     backgroundColor: '#f2f2f2',
-    flex: 1, // [cite: 8]
-    justifyContent: 'center', // [cite: 8]
-    alignItems: 'center', // [cite: 9]
-    flexDirection: 'column', // [cite: 8]
-    gap: 20, // [cite: 8]
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    gap: 20,
     width: '100%',
   },
   card: {
     backgroundColor: '#ffffff',
     padding: 20,
-    width: 250, // [cite: 8]
-    borderRadius: 12, // [cite: 8]
-    elevation: 4, // for shadow on Android [cite: 8]
-    shadowColor: '#000', // for shadow on iOS [cite: 8]
-    shadowOffset: { width: 0, height: 4 }, // [cite: 8]
-    shadowOpacity: 0.1, // [cite: 8]
-    shadowRadius: 8, // [cite: 9]
-    alignItems: 'center', // [cite: 9]
+    width: 250,
+    borderRadius: 12,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    alignItems: 'center',
   },
   profileImg: {
-    borderRadius: 50, // [cite: 9]
-    width: 100, // [cite: 9]
-    height: 100, // [cite: 9]
-    marginBottom: 15, // [cite: 9]
+    borderRadius: 50,
+    width: 100,
+    height: 100,
+    marginBottom: 15,
   },
   name: {
-    fontSize: 15, // [cite: 9]
-    fontWeight: 'bold', // [cite: 9]
-    marginBottom: 5, // [cite: 9]
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginBottom: 5,
   },
   title: {
-    color: '#555', // [cite: 9]
-    marginBottom: 10, // [cite: 9]
+    color: '#555',
+    marginBottom: 10,
   },
   detail: {
-    color: '#555', // [cite: 9]
-    fontSize: 14, // [cite: 9]
-    marginBottom: 5, // [cite: 9]
+    color: '#555',
+    fontSize: 14,
+    marginBottom: 5,
   },
   loading: {
-    fontSize: 16, // [cite: 9]
-    color: '#555', // [cite: 10]
+    fontSize: 16,
+    color: '#555',
   },
   error: {
-    fontSize: 16, // [cite: 10]
-    color: 'red', // [cite: 10]
+    fontSize: 16,
+    color: 'red',
   },
 });

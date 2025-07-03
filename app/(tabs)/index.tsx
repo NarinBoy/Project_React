@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, Dimensions, ScrollView, Platform, SafeAreaView } from 'react-native';
-import nindamProfileData from './nindam_profile.json';
+import nindamProfileData from './MyProfile.json';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -14,7 +14,7 @@ export default function App() {
           {profile && (
             <View style={styles.card}>
               <Image
-                source={{ uri: 'http://nindam.ddns.net/web/ipsubject_800/sn.jpg' }}
+                source={{ uri: 'https://scontent.fbkk30-1.fna.fbcdn.net/v/t39.30808-6/344097528_268215402294162_6259143280705370200_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHHNtz8TwQsoYMxXk-UUCuhgWB7pjlbXtGBYHumOVte0e5rJIyp486rY3a-6RIG24RmrvU81tB5yWiGo4Nt-pki&_nc_ohc=s5bCwr_5VUUQ7kNvwHwo8xy&_nc_oc=Adk6B4pUt41jsKV3uQQfQY2iiWcxgJpkOxy_7JaRQXHrO4wDlj1g8bzZtXYUTNvIEjA&_nc_zt=23&_nc_ht=scontent.fbkk30-1.fna&_nc_gid=rM2Bo6Xi8mjy5rGU2ocIDA&oh=00_AfNYYx-JdTZyQ_seqqN9U5iw-gxejSCyfbY_dMFLOYh3Qw&oe=686C8143' }}
                 style={styles.profileImg}
               />
               <Text style={styles.name}>{profile.name}</Text>
