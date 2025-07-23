@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
-
+ 
 export default function App() {
-  const [profileData, setProfileData] = useState([]);
+  const [profileData, setProfileData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-
+ 
   useEffect(() => {
     fetch('https://raw.githubusercontent.com/Narintron-KU/narintron_namecard/refs/heads/main/narintron_namecard.json')
       .then((res) => res.json())
@@ -17,7 +17,7 @@ export default function App() {
         setLoading(false);
       });
   }, []);
-
+ 
   if (loading) {
     return (
       <View style={styles.loading}>
@@ -26,7 +26,7 @@ export default function App() {
       </View>
     );
   }
-
+ 
   return (
     <ScrollView contentContainerStyle={styles.body}>
       {profileData.map((person, index) => (
@@ -41,55 +41,45 @@ export default function App() {
     </ScrollView>
   );
 }
-
 const styles = StyleSheet.create({
-    body: {
-        backgroundColor: '#f2f2f2',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-        gap: 20,
-    },
-    card: { 
-        backgroundColor: '#ffffff',
-        padding: 10,
-        width: 250,
-        borderRadius: 12,
-        elevation: 4,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.1,
-        shadowRadius: 8,
-        alignItems: 'center',
-    },
-    profileImg: {
-        borderRadius: 40,
-        width: 75,
-        height: 75,
-        marginBottom: 15,
-    },
-    name: {
-        fontSize: 15,
-        fontWeight: 'bold',
-        marginBottom: 5,
-    },
-    title: {
-        color: '#555',
-        marginBottom: 10,
-    },
-    detail: {
-        color: '#555',
-        fontSize: 12,
-        marginBottom: 5,
-    },
-    loading: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    error: {
-        fontSize: 16,
-        color: 'red',
-    }
+  body: {
+    backgroundColor: '#f2f2f2',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    gap: 20, // Adds spacing between cards
+  },
+  card: {
+    backgroundColor: '#ffffff',
+    padding: 10,
+    width: 250,
+    borderRadius: 12,
+    elevation: 4, // for shadow on Android
+    shadowColor: '#000', // for shadow on iOS
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    alignItems: 'center',
+  },
+  profileImg: {
+    borderRadius: 40,
+    width: 75,
+    height: 75,
+    marginBottom: 15,
+  },
+  name: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  title: {
+    color: '#555',
+    marginBottom: 10,
+  },
+  detail: {
+    color: '#555',
+    fontSize: 12,
+    marginBottom: 5,
+  },
 });
